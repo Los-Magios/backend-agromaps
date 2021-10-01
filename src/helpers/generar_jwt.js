@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
-const generarJwt = (uid = '') => {
-
+const generarJwt = (id) => {
     return new Promise((resolve, reject) => {
-        jwt.sign( {uid}, process.env.SING, (err, token) => {
+        jwt.sign( { id }, process.env.FIRMA, (err, token) => {
             if(err) {
-                reject("error al crear el token")
+                reject("error al crear el token", err)
             }
             resolve(token)
         })

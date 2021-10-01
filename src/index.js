@@ -3,13 +3,17 @@ const app = express()
 require('./database')
 const morgan = require('morgan')
 
+// Middlewares
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }))
 
-app.use('/users', require('./routes/user.routes'))
 
+// Rutes
+app.use('/api', require('./routes/user.routes'))
+app.use('/login', require('./routes/login.routes'))
 
+// Settings
 app.set('port', process.env.PORT || 4000)
 
 app.listen(app.get('port'), () => {

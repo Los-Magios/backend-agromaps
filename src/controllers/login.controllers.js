@@ -1,21 +1,25 @@
 const generarJwt = require('../helpers/generar_jwt')
 const userSchema = require('../models/user.model')
+const bcrypt = require('bcrypt')
 
 require('dotenv').config()
 
-const login = async(req, res) => {
-    const {username, password} = req.body
+const login = async (req, res) => {
     try {
-        const { _id } = await userSchema.findOne({username, password})
-        if(!_id) {
-            return res.status(401).json('username no válido')
+        const { username, password } = req.body
+        const usuario = await userSchema.findOne({username})
+        if(!usuario) {
+            return res.status(400).json('usuario no válido')
         }
-        const id = _id.toString()
-        const token = await generarJwt(id)
+        const existeUsuario = await bcrypt.compare(password, usuario.password)
+        if (!existeUsuario) {
+            res.status(400).json("usuario no válido")
+        }
+        const token = await generarJwt(usuario._id)
         res.status(200).json({token})
     }catch(err) {
-        return res.status(500).json('Error' + err)
+        return res.status(500).json('Error en login.controllers' + err)
     }
 }
 
-module.exports = {login}
+module.exports = { login }
