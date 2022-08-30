@@ -18,7 +18,6 @@ const obtenerUser = async (req, res) => {
   } catch (err) {
     console.error("Error en controlador ObtenerUser", err)
   }
-
 }
 
 const altaUser = async (req, res) => {
@@ -29,7 +28,7 @@ const altaUser = async (req, res) => {
     await newUser.save()
     res.json({ msg: 'Usuario creado correctamente' })
   } catch (err) {
-    console.error("Error en controldor altaUser", err)
+    console.error("Error al crear un nuevo usuario", err)
   }
 }
 

@@ -1,16 +1,16 @@
 const express = require('express')
 const app = express()
-require('./database')
 const morgan = require('morgan')
+require('./database')
+require('dotenv').config()
 
 // Middlewares
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }))
 
-
 // Rutes
-app.use('/api', require('./routes/user.routes'))
+app.use('/users', require('./routes/user.routes'))
 app.use('/login', require('./routes/login.routes'))
 
 // Settings

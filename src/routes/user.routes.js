@@ -4,7 +4,7 @@ const { validacionAddUser, validacionEditUser, validarDeleteUser, validarCampos 
 
 router.get('/get-users', obtenerUsers)
 router.get('/get-user/:id', obtenerUser)
-router.post('/create-user', [validacionAddUser(), validarCampos], altaUser)
+router.post('/create-user', altaUser)
 router.put('/edit-user/:id', [validacionEditUser(), validarCampos], editarUser)
 router.delete('/delete-user/:id', [validarDeleteUser(), validarCampos], disableUser)
 
