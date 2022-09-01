@@ -1,46 +1,33 @@
-const {body, check, result_validacion} = require('express-validator')
+const { body, check, result_validacion } = require('express-validator')
 
 const validacionAddUser = () => {
-    return [
-        body('username', 'username no válido')
-        .trim()
-        .escape()
-        .isLength({min: 4, max: 10}),
-        body('password', 'password no válido')
-        .trim()
-        .escape()
-        .isLength({min: 4, max: 20})
-    ]
-}
-
-const validacionEditUser = () => {
-    return [
-        body('username', 'username no válido')
-        .trim()
-        .escape()
-        .isLength({min: 4, max: 10}),
-        body('password', 'password no válido')
-        .trim()
-        .escape()
-        .isLength({min: 4, max: 20})
-    ]
+  return [
+    body('usuario', 'El usuario no es válido')
+      .trim()
+      .escape()
+      .isLength({ min: 6, max: 12 }),
+    body('clave', 'La contraseña no es válida')
+      .trim()
+      .escape()
+      .isLength({ min: 6, max: 20 })
+  ]
 }
 
 const validarDeleteUser = () => {
-    return [
-        check('id', 'Id invalida')
-        .trim()
-        .escape()
-        .isMongoId()
-    ]
+  return [
+    check('id', 'Id invalida')
+      .trim()
+      .escape()
+      .isMongoId()
+  ]
 }
 
 const validarCampos = (req, res, next) => {
-    const err = result_validacion(req)
-    if (!err.isEmpty()) {
-        return res.status(401).json({err})
-    }
-    next()
+  const err = result_validacion(req)
+  if (!err.isEmpty()) {
+    return res.status(401).json({ err })
+  }
+  next()
 }
 
-module.exports = {validacionAddUser, validacionEditUser, validarDeleteUser, validarCampos}
+module.exports = { validacionAddUser, validarDeleteUser, validarCampos }
