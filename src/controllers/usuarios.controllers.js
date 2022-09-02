@@ -29,10 +29,10 @@ const getUsuario = async (req, res) => {
 
 const postUsuario = async (req, res) => {
   try {
-    const { username, password } = req.body
-    const newPassword = await bcrypt.hash(password, 10)
+    const { usuario, clave } = req.body
+    const newClave = await bcrypt.hash(clave, 10)
     const newUser = new User({
-      username, password: newPassword
+      usuario, clave: newClave
     })
     await newUser.save()
     return res.status(201).json({ message: 'El usuario ha sido creado correctamente' })
@@ -45,8 +45,8 @@ const putUsuario = async (req, res) => {
   try {
     const usuario = await findById(req.params.id)
     if (usuario) {
-      const { username, password } = req.body
-      await User.findByIdAndUpdate(req.params.id, { username, password })
+      const { usuario, clave } = req.body
+      await User.findByIdAndUpdate(req.params.id, { usuario, clave })
       return res.status(200).json({ message: 'El usuario ha sido modificado correctamente' })
     } else {
       return res.status(400).json({ message: 'No se encontró el usuario en la base de datos' })

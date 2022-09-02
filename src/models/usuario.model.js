@@ -17,7 +17,7 @@ const userSchema = new Schema({
     type: Boolean, default: true
   },
   rol: {
-    type: String, default: 'comun', required: true
+    type: String, default: 'comun'
   }
 })
 

@@ -10,7 +10,7 @@ app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }))
 
 // Rutes
-app.use('/users', require('./routes/usuarios.routes'))
+app.use('/usuarios', require('./routes/usuarios.routes'))
 app.use('/login', require('./routes/login.routes'))
 
 // Settings
