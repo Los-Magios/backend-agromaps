@@ -2,22 +2,25 @@ const { model, Schema } = require('mongoose')
 
 const userSchema = new Schema({
   usuario: {
-    type: String, required: true
+    type: String
   },
   clave: {
-    type: String, required: true
+    type: String
   },
   correo: {
-    type: String, required: true
+    type: String
   },
   telefono: {
-    type: String, default: null
+    type: String,
+    default: null
   },
   estado: {
-    type: Boolean, default: true
+    type: Boolean,
+    default: true
   },
   rol: {
-    type: String, default: 'comun'
+    type: String,
+    enum: ['asesor', 'productor', 'admin']
   }
 })
 

@@ -29,10 +29,10 @@ const getUsuario = async (req, res) => {
 
 const postUsuario = async (req, res) => {
   try {
-    const { usuario, clave } = req.body
+    const { usuario, clave, correo, rol } = req.body
     const newClave = await bcrypt.hash(clave, 10)
     const newUser = new User({
-      usuario, clave: newClave
+      usuario, correo, rol, clave: newClave
     })
     await newUser.save()
     return res.status(201).json({ message: 'El usuario ha sido creado correctamente' })

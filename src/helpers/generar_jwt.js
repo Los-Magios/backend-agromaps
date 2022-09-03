@@ -5,7 +5,7 @@ const generarJwt = (id) => {
   return new Promise((resolve, reject) => {
     jwt.sign({ id }, process.env.FIRMA, (err, token) => {
       if (err) {
-        reject("Hubo un error al generar el token", err)
+        reject({ message: "Hubo un error al generar el token", err})
       }
       resolve(token)
     })
