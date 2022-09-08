@@ -4,35 +4,39 @@ const middleware = {};
 
 middleware.validateLogin = async (req, res, next) => {
   try {
-    const token = req.header('auth-token');
+    const token = req.header('auth-token')
+
     if (!token) {
-      return res.status(400).json({ message: 'Error de autenticacion' });
+      return res.status(400).json({ message: 'Error de autenticacion' })
     }
 
-    const { id } = jwt.verify(token, process.env.FIRMA);
+    const { id } = jwt.verify(token, process.env.FIRMA)
 
     if (id) {
-      const usuario = await Usuarios.findByPk(id);
+      const usuario = await Usuarios.find({ _id: id})
+
       if (usuario) {
-        if (usuario.estado) {
-          req.rol = usuario.rol;
-          return next();
+        console.log("usuario2: ", usuario)
+        if (usuario.estado === false) {
+          return res.status(401).json({ message: 'El usuario está inhabilitado' })
+        }else{
+          return next()
         }
-        return res.status(401).json({ message: 'El usuario está inhabilitado' });
       }
     }
-    return res.status(401).json({ message: 'Debe loguearse para acceder' });
+    return res.status(401).json({ message: 'Debe loguearse para acceder' })
   } catch (error) {
-    const alert = catchHandler(error);
-    res.status(alert.status).json({ message: alert.message });
+    res.status(500).json(error)
   }
 };
 
-middleware.validateAdmin = (req, res, next) => {
-  if (req.rol === 'admin') {
-    return next();
+middleware.validateAdmin = async (req, res, next) => {
+  const { usuario } = req.body
+  const user = await Usuarios.findOne({ usuario: usuario })
+  if (user.rol === 'admin') {
+    return next()
   }
-  return res.status(401).json({ message: 'Debes tener acceso de administrador para realizar esta acción' });
+  return res.status(401).json({ message: 'Debes tener acceso de administrador para realizar esta acción' })
 };
 
-module.exports = middleware;
+module.exports = middleware

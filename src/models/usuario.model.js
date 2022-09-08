@@ -21,6 +21,10 @@ const userSchema = new Schema({
   rol: {
     type: String,
     enum: ['asesor', 'productor', 'admin']
+  },
+  ubicaciones: {
+    type: Array,
+    default: []
   }
 })
 

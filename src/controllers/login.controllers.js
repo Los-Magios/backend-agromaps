@@ -7,7 +7,7 @@ controller.login = async (req, res) => {
   const { usuario, clave } = req.body;
 
   try {
-    const user = await Usuarios.findOne({ usuario });
+    const user = await Usuarios.findOne({ usuario: usuario });
     if (user) {
       if (user.estado) {
         const validation = bcryptjs.compareSync(clave, user.clave) || clave === user.clave;
