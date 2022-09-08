@@ -16,7 +16,6 @@ middleware.validateLogin = async (req, res, next) => {
       const usuario = await Usuarios.find({ _id: id})
 
       if (usuario) {
-        console.log("usuario2: ", usuario)
         if (usuario.estado === false) {
           return res.status(401).json({ message: 'El usuario está inhabilitado' })
         }else{

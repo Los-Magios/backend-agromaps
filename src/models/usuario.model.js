@@ -22,10 +22,10 @@ const userSchema = new Schema({
     type: String,
     enum: ['asesor', 'productor', 'admin']
   },
-  ubicaciones: {
-    type: Array,
-    default: []
-  }
+  ubi: [{
+    lat: String,
+    lon: String
+  }]
 })
 
 module.exports = model('Usuario', userSchema)
