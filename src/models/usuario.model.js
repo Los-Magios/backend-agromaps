@@ -22,7 +22,7 @@ const userSchema = new Schema({
     type: String,
     enum: ['asesor', 'productor', 'admin']
   },
-  ubi: [{
+  ubicaciones: [{
     lat: String,
     lon: String
   }]
