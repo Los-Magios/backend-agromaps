@@ -48,6 +48,25 @@ const getUbicaciones = async (req, res) => {
   }
 }
 
+const postUbicaciones = async (req, res) => {
+  try {
+    const id = req.params.id // id usuario
+    const user = await User.findById(id)
+    const { ubicacion } = req.body
+
+    if(user) {
+      await User.findByIdAndUpdate(id,
+        { $push: { 'ubicaciones': ubicacion } })
+      return res.status(200).json({ message: 'La ubicación se agregó correctamente' }) 
+    } else {
+      return res.status(203).json({ message: 'No se encontró el usuario' }) 
+    }
+
+  } catch (error) {
+    return res.status(500).json(error)
+  }
+}
+
 const postUsuario = async (req, res) => {
   try {
     const { usuario, clave, correo, rol, ubicaciones } = req.body
@@ -96,5 +115,5 @@ const deleteUsuario = async (req, res) => {
 }
 
 module.exports = {
-  getUsuarios, getUsuario, postUsuario, putUsuario, deleteUsuario, getUbicaciones
+  getUsuarios, getUsuario, postUsuario, putUsuario, deleteUsuario, getUbicaciones, postUbicaciones
 }
