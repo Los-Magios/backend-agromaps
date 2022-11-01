@@ -16,7 +16,7 @@ const getCapas = async (req, res) => {
 const postCapa = async (req, res) => {
   try {
     const { titulo, api } = req.body
-    const nuevaCapa = new User({
+    const nuevaCapa = new Model({
       titulo, api
     })
     await nuevaCapa.save()
