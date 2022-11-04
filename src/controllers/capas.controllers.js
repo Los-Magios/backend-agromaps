@@ -15,9 +15,10 @@ const getCapas = async (req, res) => {
 
 const postCapa = async (req, res) => {
   try {
-    const { titulo, api } = req.body
+    const { titulo, api, simbologia } = req.body
+    // simbología: { color, categoria}
     const nuevaCapa = new Model({
-      titulo, api
+      titulo, api, simbologia
     })
     await nuevaCapa.save()
     return res.status(201).json({ message: 'La capa ha sido creado correctamente' })

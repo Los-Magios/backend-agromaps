@@ -6,6 +6,9 @@ const capasSchema = new Schema({
   },
   api: {
     type: String
+  },
+  simbologia: {
+    type: String
   }
 })
 
