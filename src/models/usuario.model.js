@@ -20,9 +20,10 @@ const userSchema = new Schema({
   },
   rol: {
     type: String,
-    enum: ['asesor', 'productor', 'admin']
+    enum: ['comun', 'admin'],
+    default: 'comun'
   },
-  ubi: [{
+  ubicaciones: [{
     lat: String,
     lon: String
   }]

@@ -30,10 +30,17 @@ middleware.validateLogin = async (req, res, next) => {
 };
 
 middleware.validateAdmin = async (req, res, next) => {
-  const { usuario } = req.body
-  const user = await Usuarios.findOne({ usuario: usuario })
-  if (user.rol === 'admin') {
-    return next()
+  const token = req.header('auth-token')
+  const { id } = jwt.verify(token, process.env.FIRMA)
+
+  const user = await Usuarios.findOne({ _id: id })
+  
+  if (user) {
+    if (user.rol === 'admin') {
+      return next()
+    }
+  } else {
+    return res.status(401).json({ message: 'No se encontró el usuario' })
   }
   return res.status(401).json({ message: 'Debes tener acceso de administrador para realizar esta acción' })
 };
