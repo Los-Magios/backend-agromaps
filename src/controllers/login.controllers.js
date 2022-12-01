@@ -15,7 +15,7 @@ controller.login = async (req, res) => {
         if (validation) {
           const { usuario: username, rol, _id } = user;
           const token = await createJwt(_id);
-          return res.status(200).json({ message: 'Bienvenido', user: { usuario: username, rol, token } });
+          return res.status(200).json({ message: 'Bienvenido', user: { usuario: username, rol, _id, token } });
         }
 
         return res.status(400).json({ message: 'Contraseña incorrecta' });
