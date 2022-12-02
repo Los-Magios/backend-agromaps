@@ -13,9 +13,9 @@ controller.login = async (req, res) => {
         const validation = bcryptjs.compareSync(clave, user.clave) || clave === user.clave
 
         if (validation) {
-          const { usuario: username, rol, _id } = user
+          const { usuario: username, rol, _id, correo, telefono } = user
           const token = await createJwt(_id)
-          return res.status(200).json({ message: 'Bienvenido', user: { usuario: username, rol, token, _id } })
+          return res.status(200).json({ message: 'Bienvenido', user: { usuario: username, rol, token, _id, correo, telefono } })
         }
 
         return res.status(400).json({ message: 'Usuario o contraseña incorrecta' })
